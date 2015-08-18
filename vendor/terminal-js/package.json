@@ -1,7 +1,7 @@
 {
 	"name"           : "terminal",
 	"description"    : "Simple command-line terminal for your browser app",
-	"version"        : "1.0.0",
+	"version"        : "1.2.0",
 	"keywords"       : ["util", "functional", "browser", "terminal", "console", "shell"],
 	"homepage"       : "http://github.com/SDA/terminal",
 	"author"         : "Sasa Djolic <sasa.djolic@sdaworld.com>",

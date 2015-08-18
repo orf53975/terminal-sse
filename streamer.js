@@ -11,22 +11,22 @@ function Streamer(terminal){
 			self.source.addEventListener('message', function(event) {
 				var data = JSON.parse(event.data);
 				console.log(data);
-			  	self.terminal.echo('> '+data.msg);
+			  	self.terminal.println('> '+data.msg);
 			  
 			}, false);
 
 			self.source.addEventListener('open', function(event) {
-			  self.terminal.echo('> Connection was opened');
+			  self.terminal.println('> Connection was opened');
 			}, false);
 
 			self.source.addEventListener('error', function(event) {
 			  if (event.eventPhase == 2) { //EventSource.CLOSED
-			    self.terminal.echo('> Connection was closed');
+			    self.terminal.println('> Connection was closed');
 			  }
 			}, false);
 		}
 		catch(ex) {
-			this.terminal.echo('> Error');
+			this.terminal.println('> Error');
 			console.log(ex);
 		}
 	}
@@ -37,7 +37,7 @@ function Streamer(terminal){
 			this.isopen=false;
 		}
 		catch(ex) {
-			this.terminal.echo('> Error');
+			this.terminal.println('> Error');
 			console.log(ex);
 		}
 	}

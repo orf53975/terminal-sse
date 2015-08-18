@@ -50,8 +50,8 @@ $(function(){
 
 		if(args[0]=='close'){
 			streamer.close();
-			return;
 		}
+		return 'Please hold ...';
 	}
 
 

@@ -176,11 +176,51 @@ var terminal = new Terminal('terminal', {}, {
 You might want to use multiple command sets, for example, if your app has modules
 that hook into the terminal independently.
 
+### Asynchronously reacting to commands (or other complex uses)
+
+If your app need to do asynchronous work or output multiple lines in reaction to a command, you can use the `term` object's `output` function -- this is passed to the `execute` callback -- instead of just returning a line:
+
+```js
+var terminal = new Terminal('terminal', {}, {
+	execute: function(cmd, args, term) {
+		switch (cmd) {
+			case 'asyncHello':
+                ajax.get('http://location.example.com/', function (location) {
+                  term.output('hello ' + location + '!');
+                })
+				return 'asynchronously fetching your location...';
+
+			default:
+				// Unknown command.
+				return false;
+		};
+	}
+});
+```
+
 ### Local storage persistence
 
-Command-line history is persisted using HTML5 local storage.
+Command-line history is persisted using HTML5 local storage (size of storage and speed of querying is optimized because repeated commands are never saved two times, only the newer one is left on the storage).
 
 ## API
+
+### Arbitrarily process a command
+
+```js
+terminal.processCommand(commandString);
+```
+
+### Subscribe to command events
+
+```js
+// function to execute every time a new command is typed
+var callback = function (argv) {
+  var cmd = argv[0];
+  var args = args.slice(1);
+  // do something
+}
+terminal.subscribe(callback);
+```
 
 ### Clear the screen
 
@@ -236,7 +276,7 @@ works for other browsers, whereas Eric's version is optimized for Chrome.
 
 (The MIT License)
 
-Copyright (c) 2012 Sasa Djolic, SDA Software Associates Inc.
+Copyright (c) 2014 Giovanni Torres Parra
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
